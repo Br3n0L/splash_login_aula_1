@@ -5,6 +5,7 @@ import '../pages/home_page.dart';
 
 class CustomLoginComponents extends StatefulWidget {
   final LoginController loginController;
+
   const CustomLoginComponents({
     Key? key,
     required this.loginController,
@@ -15,24 +16,20 @@ class CustomLoginComponents extends StatefulWidget {
 }
 
 class _CustomLoginComponentsState extends State<CustomLoginComponents> {
-  late final LoginController loginController;
-
   @override
   void initState() {
     super.initState();
-    loginController = LoginController();
   }
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-      valueListenable: loginController.inLoader,
+      valueListenable: widget.loginController.inLoader,
       builder: (_, inLoader, __) => inLoader
           ? const CircularProgressIndicator()
           : ElevatedButton(
               onPressed: () {
-                // loginController.auth().then(
-                (result) {
+                widget.loginController.auth(context).then((result) {
                   if (result) {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (_) => const HomePage()),
@@ -45,7 +42,7 @@ class _CustomLoginComponentsState extends State<CustomLoginComponents> {
                       ),
                     );
                   }
-                };
+                });
               },
               child: const Text('login'),
             ),

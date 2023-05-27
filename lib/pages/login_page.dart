@@ -44,12 +44,6 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  _controller.auth(context);
-                },
-                child: const Text('Login'),
-              ),
               CustomLoginComponents(
                 loginController: _controller,
               ),
