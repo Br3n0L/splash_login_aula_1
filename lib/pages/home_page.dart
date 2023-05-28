@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splash_login_aula_1/controlles/home_controller.dart';
+import 'package:splash_login_aula_1/models/post_model.dart';
 import 'package:splash_login_aula_1/repositories/home_repository_mock.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,7 +22,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      body: ValueListenableBuilder<List<PostModel>>(
+          valueListenable: _controller.posts,
+          builder: (_, list, __) {
+            return ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (_, idx) => ListTile(
+                      title: Text(list[idx].title),
+                    ));
+          }),
     );
   }
 }
